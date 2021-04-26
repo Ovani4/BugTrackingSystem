@@ -1,7 +1,6 @@
 package controller;
 
 import model.Project;
-import model.Task;
 import repository.ProjectRepository;
 import repository.implclass.IOProjectRepository;
 

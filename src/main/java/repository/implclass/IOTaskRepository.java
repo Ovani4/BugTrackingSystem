@@ -1,5 +1,6 @@
 package repository.implclass;
 
+import model.Project;
 import model.Task;
 import repository.TaskRepository;
 
@@ -21,4 +22,8 @@ public class IOTaskRepository implements TaskRepository {
     public void deleteById(Integer integer) {
     }
 
+    @Override
+    public List<Project> getAllById(Integer integer) {
+        return null;
+    }
 }
