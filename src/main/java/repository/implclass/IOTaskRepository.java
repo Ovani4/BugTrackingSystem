@@ -1,32 +1,24 @@
 package repository.implclass;
 
+import model.Task;
 import repository.TaskRepository;
 
 import java.util.List;
 
 public class IOTaskRepository implements TaskRepository {
+
     @Override
-    public List getAll() {
+    public List<Task> getAll() {
         return null;
     }
 
     @Override
-    public Object getById(Object o) {
+    public Task save(Task task) {
         return null;
     }
 
     @Override
-    public Object save(Object o) {
-        return null;
+    public void deleteById(Integer integer) {
     }
 
-    @Override
-    public Object deleteById(Object o) {
-        return null;
-    }
-
-    @Override
-    public Object update(Object o) {
-        return null;
-    }
 }

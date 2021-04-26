@@ -1,32 +1,29 @@
 package repository.implclass;
 
+import model.User;
 import repository.UserRepository;
 
 import java.util.List;
 
 public class IOUserRepository implements UserRepository {
+
     @Override
-    public List getAll() {
+    public List<User> getAll() {
         return null;
     }
 
     @Override
-    public Object getById(Object o) {
+    public User getById(Integer integer) {
         return null;
     }
 
     @Override
-    public Object save(Object o) {
+    public User save(User user) {
         return null;
     }
 
     @Override
-    public Object deleteById(Object o) {
-        return null;
+    public void deleteById(Integer integer) {
     }
 
-    @Override
-    public Object update(Object o) {
-        return null;
-    }
 }

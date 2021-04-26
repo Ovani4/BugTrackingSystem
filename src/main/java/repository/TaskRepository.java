@@ -1,4 +1,6 @@
 package repository;
 
-public interface TaskRepository extends Repository{
+import model.Task;
+
+public interface TaskRepository extends Repository<Task, Integer>{
 }

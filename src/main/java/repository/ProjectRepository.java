@@ -1,4 +1,6 @@
 package repository;
 
-public interface ProjectRepository extends Repository{
+import model.Project;
+
+public interface ProjectRepository extends Repository<Project, Integer>{
 }

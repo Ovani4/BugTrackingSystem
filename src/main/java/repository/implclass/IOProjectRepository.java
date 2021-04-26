@@ -1,32 +1,25 @@
 package repository.implclass;
 
+import model.Project;
 import repository.ProjectRepository;
 
 import java.util.List;
 
 public class IOProjectRepository implements ProjectRepository {
+
     @Override
-    public List getAll() {
+    public List<Project> getAll() {
         return null;
     }
 
     @Override
-    public Object getById(Object o) {
+    public Project save(Project project) {
         return null;
     }
 
     @Override
-    public Object save(Object o) {
-        return null;
+    public void deleteById(Integer integer) {
+
     }
 
-    @Override
-    public Object deleteById(Object o) {
-        return null;
-    }
-
-    @Override
-    public Object update(Object o) {
-        return null;
-    }
 }

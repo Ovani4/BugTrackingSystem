@@ -1,4 +1,7 @@
 package repository;
 
-public interface UserRepository extends Repository{
+import model.User;
+
+public interface UserRepository extends Repository<User, Integer>{
+    User getById(Integer id);
 }
