@@ -10,13 +10,14 @@ public class ProjectView {
         ProjectController pc = new ProjectController();
         Scanner scanner = new Scanner(System.in);
         int choice;
+        boolean bool = true;
         System.out.println(new StringBuilder().
                 append("Для создания нового проекта введи 1;\n").
                 append("Для удаления проекта по id введи 2;\n").
                 append("Для получения списка всех проектов введи 3;\n").
                 append("Для возврата в предыдущее меню введи 0;")
                 .toString());
-        while (true) {
+        while (bool) {
             choice = scanner.nextInt();
             switch (choice) {
                 case 1:
@@ -35,6 +36,7 @@ public class ProjectView {
                     break;
                 case 0:
                     MainView mv = new MainView();
+                    bool = false;
                     break;
                 default:
                     System.out.println(new StringBuilder().

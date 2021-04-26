@@ -9,13 +9,14 @@ public class UserView {
         UserController uc = new UserController();
         Scanner scanner = new Scanner(System.in);
         int choice;
+        boolean bool = true;
         System.out.println(new StringBuilder().
                 append("Для создания нового пользователя введи 1;\n").
                 append("Для удаления пользоватея по id введи 2;\n").
-                append("Для получения списка всех задач введи 3;\n").
+                append("Для получения списка всех пользователей введи 3;\n").
                 append("Для возврата в предыдущее меню введи 0;")
                 .toString());
-        while (true) {
+        while (bool) {
             choice = scanner.nextInt();
             switch (choice) {
                 case 1:
@@ -36,12 +37,14 @@ public class UserView {
                     break;
                 case 0:
                     MainView mv = new MainView();
+                    bool = false;
                     break;
                 default:
                     System.out.println(new StringBuilder().
                             append("Для создания нового пользователя введи 1;\n").
                             append("Для удаления пользоватея по id введи 2;\n").
-                            append("Для возврата в предыдущее меню введи 0;\n")
+                            append("Для получения списка всех пользователей введи 3;\n").
+                            append("Для возврата в предыдущее меню введи 0;")
                             .toString());
                     break;
             }

@@ -4,7 +4,6 @@ public class User {
     private Integer id;
     private String firstName;
     private String lastName;
-    private Position position;
 
     public Integer getId() {
         return id;
@@ -28,13 +27,5 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
     }
 }
