@@ -2,12 +2,15 @@ package model;
 
 public class Task {
 
+    private Integer id;
     private Project project;
-    private String theme;
-    private Type type;
-    private Integer priority;
     private User user;
+    private String theme;
     private String description;
+    private Type type;
+    private Priority priority;
+
+
 
     public Project getProject() {
         return project;
@@ -33,11 +36,11 @@ public class Task {
         this.type = type;
     }
 
-    public Integer getPriority() {
+    public Priority getPriority() {
         return priority;
     }
 
-    public void setPriority(Integer priority) {
+    public void setPriority(Priority priority) {
         this.priority = priority;
     }
 
@@ -56,4 +59,13 @@ public class Task {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
 }

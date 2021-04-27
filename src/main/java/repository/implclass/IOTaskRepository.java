@@ -22,8 +22,6 @@ public class IOTaskRepository implements TaskRepository {
     public void deleteById(Integer integer) {
     }
 
-    @Override
-    public List<Project> getAllById(Integer integer) {
-        return null;
-    }
+
+
 }
