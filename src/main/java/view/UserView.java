@@ -33,7 +33,7 @@ public class UserView {
                     uc.deleteById(scanner.nextInt());
                     break;
                 case 3:
-                    uc.getAll();
+                    System.out.println(uc.getAll().toString());
                     break;
                 case 0:
                     MainView mv = new MainView();

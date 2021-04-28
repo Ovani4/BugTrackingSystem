@@ -1,11 +1,8 @@
 package view;
 
 import controller.TaskController;
-import model.Project;
 import model.Task;
 import repository.TaskRepository;
-import repository.implclass.IOTaskRepository;
-
 import java.util.Scanner;
 
 public class TaskView {
