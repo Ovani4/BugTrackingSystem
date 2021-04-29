@@ -2,11 +2,12 @@ package view;
 
 import controller.UserController;
 import model.User;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Scanner;
 
 public class UserView {
-    public UserView() {
+    public UserView() throws NullPointerException{
         StringBuilder sb = new StringBuilder();
                 sb.
                 append("Для создания нового пользователя введи 1;\n").
@@ -20,7 +21,7 @@ public class UserView {
         boolean bool = true;
         System.out.println(sb);
         while (bool) {
-            choice = scanner.nextInt();
+            choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
                 case 1:
                     User user = new User();
@@ -30,12 +31,14 @@ public class UserView {
                     user.setFirstName(scanner.nextLine());
                     System.out.println("Введи Фамилию: ");
                     user.setLastName(scanner.nextLine());
+                    uc.save(user);
                     System.out.println("Создан пользователь: " + user.toString());
                     System.out.println(sb);
                     break;
                 case 2:
                     System.out.println("Введи id пользователя которого необходимо удалить: ");
-                    uc.deleteById(scanner.nextInt());
+                    uc.deleteById(Integer.parseInt(scanner.nextLine()));
+                    System.out.println(sb);
                     break;
                 case 3:
                     System.out.println(uc.getAll().toString());

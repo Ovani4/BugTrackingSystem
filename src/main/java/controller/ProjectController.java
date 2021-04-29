@@ -13,8 +13,8 @@ public class ProjectController {
         return pr.getAll();
     }
 
-    public Project save(Project project){
-        return pr.save(project);
+    public void save(Project project){
+        pr.save(project);
     }
 
     public void deleteById(Integer integer){

@@ -13,8 +13,8 @@ public class TaskController {
         return tr.getAll();
     }
 
-    public Task save(Task task){
-        return tr.save(task);
+    public void save(Task task){
+        tr.save(task);
     }
 
     public void deleteById(Integer integer){

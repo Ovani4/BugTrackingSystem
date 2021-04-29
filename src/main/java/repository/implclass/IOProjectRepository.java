@@ -13,8 +13,7 @@ public class IOProjectRepository implements ProjectRepository {
     }
 
     @Override
-    public Project save(Project project) {
-        return null;
+    public void save(Project project) {
     }
 
     @Override

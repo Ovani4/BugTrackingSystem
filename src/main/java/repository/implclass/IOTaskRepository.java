@@ -1,6 +1,5 @@
 package repository.implclass;
 
-import model.Project;
 import model.Task;
 import repository.TaskRepository;
 
@@ -14,8 +13,7 @@ public class IOTaskRepository implements TaskRepository {
     }
 
     @Override
-    public Task save(Task task) {
-        return null;
+    public void save(Task task) {
     }
 
     @Override

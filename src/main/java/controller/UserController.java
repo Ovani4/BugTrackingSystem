@@ -14,12 +14,8 @@ public class UserController {
         return ur.getAll();
     }
 
-    public User getById(Integer integer){
-        return ur.getById(integer);
-    }
-
-    public User save(User user){
-        return ur.save(user);
+    public void save(User user){
+        ur.save(user);
     }
 
     public void deleteById(Integer integer){
