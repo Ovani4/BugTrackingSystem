@@ -7,12 +7,12 @@ import repository.UserRepository;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class IOUserRepository implements UserRepository {
 
     Gson gson = new Gson();
+    List<User> mUsers;
     private final String FILE_PATH_USER = "src/main/resources/users.json";
 
     @Override
@@ -25,16 +25,16 @@ public class IOUserRepository implements UserRepository {
 
     @Override
     public void save(User user) {
-        List<User> users;
+
         if (getListFromFile(FILE_PATH_USER) == null) {
-            users = new ArrayList<>();
-            users.add(user);
+            mUsers = new ArrayList<>();
+            mUsers.add(user);
         } else {
-            users = new ArrayList<>(getListFromFile(FILE_PATH_USER));
-            users.add(user);
+            mUsers = new ArrayList<>(getListFromFile(FILE_PATH_USER));
+            mUsers.add(user);
         }
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH_USER))) {
-            bw.write(gson.toJson(users));
+            bw.write(gson.toJson(mUsers));
         } catch (IOException e) {
             //add log
         }
@@ -42,11 +42,10 @@ public class IOUserRepository implements UserRepository {
 
     @Override
     public void deleteById(Integer integer) {
-        List<User> users = new ArrayList<>(getListFromFile(FILE_PATH_USER));
-        users.removeIf(user -> user.getId().equals(integer));
-        System.out.println(users);
+        mUsers = new ArrayList<>(getListFromFile(FILE_PATH_USER));
+        mUsers.removeIf(user -> user.getId().equals(integer));
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH_USER))) {
-            bw.write(gson.toJson(users));
+            bw.write(gson.toJson(mUsers));
         } catch (IOException e) {
 
             //add log
@@ -56,19 +55,17 @@ public class IOUserRepository implements UserRepository {
     private List<User> getListFromFile(String filePath) {
         StringBuilder sb = new StringBuilder();
         String strFromFile;
-        try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH_USER))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             while ((strFromFile = br.readLine()) != null) {
                 sb.append(strFromFile.replaceAll(" ", ""));
             }
-        } catch (FileNotFoundException e) {
-            //add log
-        } catch (IOException e) {
+        }  catch (IOException e) {
             //add log
         }
         Type userType = new TypeToken<ArrayList<User>>() {
         }.getType();
-        List<User> users = gson.fromJson(sb.toString(), userType);
+        mUsers = gson.fromJson(sb.toString(), userType);
         //add log
-        return users;
+        return mUsers;
     }
 }

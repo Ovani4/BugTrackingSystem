@@ -1,49 +1,51 @@
 package model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class User {
-    private Integer id;
-    private String firstName;
-    private String lastName;
+    private Integer mId;
+    private String mFirstName;
+    private String mLastName;
 
     public User() {
     }
 
     public User(Integer id, String firstName, String lastName) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.mId = id;
+        this.mFirstName = firstName;
+        this.mLastName = lastName;
     }
 
     public Integer getId() {
-        return id;
+        return mId;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.mId = id;
     }
 
     public String getFirstName() {
-        return firstName;
+        return mFirstName;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.mFirstName = firstName;
     }
 
     public String getLastName() {
-        return lastName;
+        return mLastName;
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.mLastName = lastName;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                "id=" + mId +
+                ", firstName='" + mFirstName + '\'' +
+                ", lastName='" + mLastName + '\'' +
                 '}';
     }
 }
