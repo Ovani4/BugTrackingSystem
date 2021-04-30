@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import model.Task;
 import model.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import repository.TaskRepository;
 
 import java.io.*;
@@ -16,14 +18,23 @@ public class IOTaskRepository implements TaskRepository {
 
     Gson gson = new Gson();
     List<Task> mTask;
+    private static Logger logger;
     private final String FILE_PATH_TASK = "src/main/resources/tasks.json";
+
+    public IOTaskRepository() {
+        logger = LogManager.getRootLogger();
+    }
 
     @Override
     public List<Task> getAll() {
-        if (getListFromFile(FILE_PATH_TASK) == null)
+        if (getListFromFile(FILE_PATH_TASK) == null) {
+            logger.info("возвращен пустой лист");
             return new ArrayList<>();
-        else
+        }
+        else {
+            logger.info("получен список задач");
             return getListFromFile(FILE_PATH_TASK);
+        }
     }
 
     @Override
@@ -31,14 +42,16 @@ public class IOTaskRepository implements TaskRepository {
         if (getListFromFile(FILE_PATH_TASK) == null) {
             mTask = new ArrayList<>();
             mTask.add(task);
+            logger.info("задача успешно сохранена");
         } else {
             mTask = new ArrayList<>(getListFromFile(FILE_PATH_TASK));
             mTask.add(task);
+            logger.info("задача успешно сохранена");
         }
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH_TASK))) {
             bw.write(gson.toJson(mTask));
         } catch (IOException e) {
-            //add log
+            logger.info("ошибка ввода-вывода при сохранении задачи");
         }
     }
 
@@ -52,12 +65,12 @@ public class IOTaskRepository implements TaskRepository {
                 if (nextTask.getId().equals(integer)) {
                     taskIterator.remove();
                     System.out.println("Задача успешно удалена.");
+                    logger.info("Задача успешно удалена");
                     try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH_TASK))) {
                         bw.write(gson.toJson(mTask));
                     } catch (IOException e) {
-                        //add log
+                        logger.info("ошибка при записи в файл");
                     }
-                //add log успешное удаление
                 }
             }
     }
@@ -70,12 +83,12 @@ public class IOTaskRepository implements TaskRepository {
                 sb.append(strFromFile.replaceAll(" ", ""));
             }
         }  catch (IOException e) {
-            //add log
+            logger.info("ошибка ввода-вывода при парсинге файла задач");
         }
         Type taskType = new TypeToken<ArrayList<Task>>() {
         }.getType();
         mTask = gson.fromJson(sb.toString(), taskType);
-        //add log
+        logger.info("парсинг файла задач успешно совершен");
         return mTask;
     }
 

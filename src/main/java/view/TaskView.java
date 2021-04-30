@@ -4,11 +4,15 @@ import controller.ProjectController;
 import controller.TaskController;
 import controller.UserController;
 import model.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import repository.TaskRepository;
 import java.util.Scanner;
 
 public class TaskView {
+    Logger logger;
     public TaskView() {
+        logger = LogManager.getRootLogger();
         UserController uc;
         ProjectController pc;
         StringBuilder sb = new StringBuilder();
@@ -97,6 +101,7 @@ public class TaskView {
                             findFirst().
                             orElse(null);
                     System.out.println(TaskRepository.getAllByUser(user));
+                    logger.info("получение списка задач для пользователя" + user);
                     System.out.println(sb);
                     break;
                 case 5:
@@ -110,6 +115,7 @@ public class TaskView {
                             findFirst().
                             orElse(null);
                     System.out.println(TaskRepository.getAllByProject(project));
+                    logger.info("получение списка задач для проекта" + project);
                     System.out.println(sb);
                     break;
                 case 0:
