@@ -7,18 +7,21 @@ import java.util.Scanner;
 
 public class MainView {
     private static Logger logger;
+
     public MainView() {
         logger = LogManager.getRootLogger();
         logger.info("приложение запущено");
         Scanner scan = new Scanner(System.in);
         int choice;
         boolean boolmv = true;
-
-        System.out.println(new StringBuilder().
+        StringBuilder sb = new StringBuilder();
+        sb.
                 append("Для создания, удаления, получения списка пользователей введи 1;\n").
                 append("Для создания, удаления, получения списка проектов введи 2;\n").
                 append("Для создания, удаления, получения списка задач введи 3;\n").
-                append("Для выхода из программы введи 0;").toString());
+                append("Для выхода из программы введи 0;").toString();
+
+        System.out.println(sb);
         while (boolmv) {
             choice = scan.nextInt();
             switch (choice) {
@@ -39,11 +42,7 @@ public class MainView {
                     boolmv = false;
                     break;
                 default:
-                    System.out.println(new StringBuilder().
-                            append("Для создания, удаления, получения списка пользователей введи 1;\n").
-                            append("Для создания, удаления, получения списка проектов введи 2;\n").
-                            append("Для создания, удаления, получения списка задач введи 3;\n").
-                            append("Для выхода из программы введи 0;").toString());
+                    System.out.println(sb);
             }
         }
         logger.info("закрытие приложения");
