@@ -2,6 +2,8 @@ package repository.implclass;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import controller.TaskController;
+import model.Task;
 import model.User;
 import repository.UserRepository;
 import java.io.*;
@@ -25,7 +27,6 @@ public class IOUserRepository implements UserRepository {
 
     @Override
     public void save(User user) {
-
         if (getListFromFile(FILE_PATH_USER) == null) {
             mUsers = new ArrayList<>();
             mUsers.add(user);
@@ -42,13 +43,20 @@ public class IOUserRepository implements UserRepository {
 
     @Override
     public void deleteById(Integer integer) {
+        TaskController tc = new TaskController();
         mUsers = new ArrayList<>(getListFromFile(FILE_PATH_USER));
-        mUsers.removeIf(user -> user.getId().equals(integer));
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH_USER))) {
-            bw.write(gson.toJson(mUsers));
-        } catch (IOException e) {
-
-            //add log
+        for (Task task :
+                tc.getAll()) {
+            if (task.getUser().getId().equals(integer))
+                System.out.println("Для данного пользователя существует задача: " + task.getTheme());
+            else {
+                mUsers.removeIf(user -> user.getId().equals(integer));
+                try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH_USER))) {
+                    bw.write(gson.toJson(mUsers));
+                } catch (IOException e) {
+                    //add log
+                }
+            }
         }
     }
 

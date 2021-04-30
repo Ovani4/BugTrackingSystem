@@ -1,7 +1,5 @@
 package model;
 
-import com.google.gson.annotations.SerializedName;
-
 public class User {
     private Integer mId;
     private String mFirstName;

@@ -2,7 +2,9 @@ package repository.implclass;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import controller.TaskController;
 import model.Project;
+import model.Task;
 import repository.ProjectRepository;
 
 import java.io.*;
@@ -43,13 +45,19 @@ public class IOProjectRepository implements ProjectRepository {
 
     @Override
     public void deleteById(Integer integer) {
+        TaskController tc = new TaskController();
         mProject = new ArrayList<>(getListFromFile(FILE_PATH_PROJECTS));
-        mProject.removeIf(user -> user.getId().equals(integer));
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH_PROJECTS))) {
-            bw.write(gson.toJson(mProject));
-        } catch (IOException e) {
-
-            //add log
+        for (Task task: tc.getAll()) {
+            if (task.getProject().getId().equals(integer))
+                System.out.println("Для данного проета существует задача: " + task.getTheme());
+            else {
+                mProject.removeIf(project -> project.getId().equals(integer));
+                try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH_PROJECTS))) {
+                    bw.write(gson.toJson(mProject));
+                } catch (IOException e) {
+                    //add log
+                }
+            }
         }
     }
 

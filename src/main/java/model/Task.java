@@ -10,7 +10,18 @@ public class Task {
     private Type type;
     private Priority priority;
 
+    public Task() {
+    }
 
+    public Task(Integer id, Project project, User user, String theme, String description, Type type, Priority priority) {
+        this.id = id;
+        this.project = project;
+        this.user = user;
+        this.theme = theme;
+        this.description = description;
+        this.type = type;
+        this.priority = priority;
+    }
 
     public Project getProject() {
         return project;
@@ -68,4 +79,16 @@ public class Task {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", project=" + project +
+                ", user=" + user +
+                ", theme='" + theme + '\'' +
+                ", description='" + description + '\'' +
+                ", type=" + type +
+                ", priority=" + priority +
+                '}';
+    }
 }

@@ -1,17 +1,1 @@
-[
-  {
-    "id": 2,
-    "firstName": "Petya",
-    "lastName": "Petrov"
-  },
-  {
-    "id": 3,
-    "firstName": "Boby",
-    "lastName": "Vasilyev"
-  },
-  {
-    "id": 3,
-    "firstName": "Ivan",
-    "lastName": "Ivanov"
-  }
-]
+[{"mId":4,"mFirstName":"Fedor","mLastName":"Fedorov"},{"mId":2,"mFirstName":"Ivan","mLastName":"Ivanov"},{"mId":3,"mFirstName":"Petya","mLastName":"Petrov"}]

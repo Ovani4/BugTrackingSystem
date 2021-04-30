@@ -2,8 +2,6 @@ package view;
 
 import controller.UserController;
 import model.User;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.Scanner;
 
 public class UserView {
