@@ -6,7 +6,10 @@ import org.apache.logging.log4j.Logger;
 import java.util.Scanner;
 
 public class MainView {
+    private static Logger logger;
     public MainView() {
+        logger = LogManager.getRootLogger();
+        logger.info("приложение запущено");
         Scanner scan = new Scanner(System.in);
         int choice;
         boolean boolmv = true;
@@ -43,5 +46,6 @@ public class MainView {
                             append("Для выхода из программы введи 0;").toString());
             }
         }
+        logger.info("закрытие приложения");
     }
 }
