@@ -35,6 +35,7 @@ public class UserView {
                     break;
                 case 2:
                     System.out.println("Введи id пользователя которого необходимо удалить: ");
+                    System.out.println(uc.getAll());
                     uc.deleteById(Integer.parseInt(scanner.nextLine()));
                     System.out.println(sb);
                     break;

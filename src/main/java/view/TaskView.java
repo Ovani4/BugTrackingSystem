@@ -68,9 +68,13 @@ public class TaskView {
                     else if (Integer.parseInt(scanner.nextLine()) == 2)
                         task.setPriority(Priority.MEDIUM);
                     else task.setPriority(Priority.HI);
-                    tc.save(task);
-                    System.out.println("Создана новая задача: " + task);
-                    System.out.println(sb);
+                    if (task.getProject().equals(null) || task.getUser().equals(null)){
+                        System.out.println("Задача не может ссылаться на несуществующий проект или пользователя");
+                    }else {
+                        tc.save(task);
+                        System.out.println("Создана новая задача: " + task);
+                        System.out.println(sb);
+                    }
                     break;
                 case 2:
                     System.out.println("Введи id задачи которую надо удалить: ");
