@@ -2,12 +2,13 @@ package view;
 
 import controller.UserController;
 import model.User;
+
 import java.util.Scanner;
 
 public class UserView {
-    public UserView() throws NullPointerException{
+    public UserView() {
         StringBuilder sb = new StringBuilder();
-                sb.
+        sb.
                 append("Для создания нового пользователя введи 1;\n").
                 append("Для удаления пользоватея по id введи 2;\n").
                 append("Для получения списка всех пользователей введи 3;\n").

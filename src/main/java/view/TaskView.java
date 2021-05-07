@@ -7,10 +7,12 @@ import model.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import repository.TaskRepository;
+
 import java.util.Scanner;
 
 public class TaskView {
-    Logger logger;
+    private Logger logger;
+
     public TaskView() {
         logger = LogManager.getRootLogger();
         UserController uc;
@@ -66,15 +68,15 @@ public class TaskView {
                     System.out.println("Выбери приоритет задачи: " +
                             "\n 1. Low " +
                             "\n 2. Medium " +
-                            "\n 3. Hi" );
+                            "\n 3. Hi");
                     if (Integer.parseInt(scanner.nextLine()) == 1)
                         task.setPriority(Priority.LOW);
                     else if (Integer.parseInt(scanner.nextLine()) == 2)
                         task.setPriority(Priority.MEDIUM);
                     else task.setPriority(Priority.HI);
-                    if (task.getProject().equals(null) || task.getUser().equals(null)){
+                    if (task.getProject().equals(null) || task.getUser().equals(null)) {
                         System.out.println("Задача не может ссылаться на несуществующий проект или пользователя");
-                    }else {
+                    } else {
                         tc.save(task);
                         System.out.println("Создана новая задача: " + task);
                         System.out.println(sb);

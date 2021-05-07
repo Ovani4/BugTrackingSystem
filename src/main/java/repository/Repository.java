@@ -6,9 +6,9 @@ public interface Repository <T, ID>{
     List<T> getAll();
     void save(T t);
     void deleteById(ID id);
-    private List<T> getListFromFile (){
+    default List<T> getListFromFile(){
         return null;
     }
-    private void setFileFromList(List<T> type){}
+    default void setFileFromList(List<T> type){}
 
 }

@@ -16,8 +16,8 @@ import java.util.List;
 
 public class IOTaskRepository implements TaskRepository {
 
-    Gson gson = new Gson();
-    List<Task> mTask;
+    private Gson gson = new Gson();
+    private List<Task> mTask;
     private static Logger logger;
     private final String FILE_PATH_TASK = "src/main/resources/tasks.json";
 
@@ -28,10 +28,10 @@ public class IOTaskRepository implements TaskRepository {
     @Override
     public List<Task> getAll() {
         if (getListFromFile(FILE_PATH_TASK) == null) {
+            System.out.println("Данные о существующих задачах отсутствуют");
             logger.info("возвращен пустой лист");
             return new ArrayList<>();
-        }
-        else {
+        } else {
             logger.info("получен список задач");
             return getListFromFile(FILE_PATH_TASK);
         }
@@ -42,16 +42,19 @@ public class IOTaskRepository implements TaskRepository {
         if (getListFromFile(FILE_PATH_TASK) == null) {
             mTask = new ArrayList<>();
             mTask.add(task);
+            System.out.println("Задача успешно сохранена.");
             logger.info("задача успешно сохранена");
         } else {
             mTask = new ArrayList<>(getListFromFile(FILE_PATH_TASK));
             mTask.add(task);
+            System.out.println("Задача успешно сохранена.");
             logger.info("задача успешно сохранена");
         }
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH_TASK))) {
             bw.write(gson.toJson(mTask));
         } catch (IOException e) {
-            logger.info("ошибка ввода-вывода при сохранении задачи");
+            System.err.println("Ошибка при сохранении задачи");
+            logger.info("ошибка ввода-вывода при сохранении задачи " + e.getMessage());
         }
     }
 
@@ -59,20 +62,21 @@ public class IOTaskRepository implements TaskRepository {
     public void deleteById(Integer integer) {
 
         mTask = new ArrayList<>(getListFromFile(FILE_PATH_TASK));
-            Iterator taskIterator = mTask.iterator();
-            while (taskIterator.hasNext()){
-                Task nextTask = (Task) taskIterator.next();
-                if (nextTask.getId().equals(integer)) {
-                    taskIterator.remove();
-                    System.out.println("Задача успешно удалена.");
-                    logger.info("Задача успешно удалена");
-                    try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH_TASK))) {
-                        bw.write(gson.toJson(mTask));
-                    } catch (IOException e) {
-                        logger.info("ошибка при записи в файл");
-                    }
+        Iterator taskIterator = mTask.iterator();
+        while (taskIterator.hasNext()) {
+            Task nextTask = (Task) taskIterator.next();
+            if (nextTask.getId().equals(integer)) {
+                taskIterator.remove();
+                System.out.println("Задача успешно удалена.");
+                logger.info("Задача успешно удалена");
+                try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH_TASK))) {
+                    bw.write(gson.toJson(mTask));
+                } catch (IOException e) {
+                    System.err.println("Ошибка при удалении задачи");
+                    logger.info("ошибка при записи в файл " + e.getMessage());
                 }
             }
+        }
     }
 
     private List<Task> getListFromFile(String filePath) {
@@ -82,8 +86,8 @@ public class IOTaskRepository implements TaskRepository {
             while ((strFromFile = br.readLine()) != null) {
                 sb.append(strFromFile.replaceAll(" ", ""));
             }
-        }  catch (IOException e) {
-            logger.info("ошибка ввода-вывода при парсинге файла задач");
+        } catch (IOException e) {
+            logger.info("ошибка ввода-вывода при парсинге файла задач " + e.getMessage());
         }
         Type taskType = new TypeToken<ArrayList<Task>>() {
         }.getType();

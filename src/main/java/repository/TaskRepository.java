@@ -3,10 +3,14 @@ import controller.TaskController;
 import model.Project;
 import model.Task;
 import model.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public interface TaskRepository extends Repository<Task, Integer>{
+    Logger logger = LogManager.getRootLogger();
     TaskController tc = new TaskController();
     static List<Task> getAllByUser(User user){
         List<Task> tasksByUser = new ArrayList<>();
@@ -15,7 +19,7 @@ public interface TaskRepository extends Repository<Task, Integer>{
             if (task.getUser().getId().equals(user.getId()))
                 tasksByUser.add(task);
         }
-        //add log
+        logger.info("Получение списка задач по id пользователя.");
         return tasksByUser;
     }
     static List<Task> getAllByProject(Project project){
@@ -25,7 +29,7 @@ public interface TaskRepository extends Repository<Task, Integer>{
             if (task.getProject().getId().equals(project.getId()))
                 tasksByProject.add(task);
         }
-        //add log
+        logger.info("Получение списка задач по id проекта.");
         return tasksByProject;
     }
 }

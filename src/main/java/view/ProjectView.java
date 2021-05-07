@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class ProjectView {
     public ProjectView() {
         StringBuilder sb = new StringBuilder();
-                sb.
+        sb.
                 append("Для создания нового проекта введи 1;\n").
                 append("Для удаления проекта по id введи 2;\n").
                 append("Для получения списка всех проектов введи 3;\n").

@@ -8,6 +8,7 @@ import model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import repository.UserRepository;
+
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -15,8 +16,8 @@ import java.util.List;
 
 public class IOUserRepository implements UserRepository {
     private static Logger logger;
-    Gson gson = new Gson();
-    List<User> mUsers;
+    private Gson gson = new Gson();
+    private List<User> mUsers;
     private final String FILE_PATH_USER = "src/main/resources/users.json";
 
     public IOUserRepository() {
@@ -26,10 +27,10 @@ public class IOUserRepository implements UserRepository {
     @Override
     public List<User> getAll() {
         if (getListFromFile(FILE_PATH_USER) == null) {
+            System.err.println("Данные о пользователях отсутствуют");
             logger.info("возвращен пустой лист");
             return new ArrayList<>();
-        }
-        else {
+        } else {
             logger.info("получен список пользователей");
             return getListFromFile(FILE_PATH_USER);
         }
@@ -40,16 +41,19 @@ public class IOUserRepository implements UserRepository {
         if (getListFromFile(FILE_PATH_USER) == null) {
             mUsers = new ArrayList<>();
             mUsers.add(user);
+            System.out.println("Пользователь успешно сохранен.");
             logger.info("пользователь успешно сохранен");
         } else {
             mUsers = new ArrayList<>(getListFromFile(FILE_PATH_USER));
             mUsers.add(user);
+            System.out.println("Пользователь успешно сохранен.");
             logger.info("пользователь успешно сохранен");
         }
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH_USER))) {
             bw.write(gson.toJson(mUsers));
         } catch (IOException e) {
-            logger.info("ошибка ввода-вывода при сохранении пользователя");
+            System.err.println("Ошибка при сохранении пользователя.");
+            logger.info("ошибка ввода-вывода при сохранении пользователя " + e.getMessage());
         }
     }
 
@@ -60,16 +64,17 @@ public class IOUserRepository implements UserRepository {
         for (Task task :
                 tc.getAll()) {
             if (task.getUser().getId().equals(integer)) {
-                System.out.println("Для данного пользователя существует задача: " + task.getTheme());
-                logger.info("объект не удален, за ним значится задача");
-            }
-            else {
+                System.err.println("Для данного пользователя существует задача: " + task.getTheme());
+                logger.info("объект не удален, за ним значится задача " + task.getTheme());
+            } else {
                 mUsers.removeIf(user -> user.getId().equals(integer));
+                System.out.println("Пользователь успешно удален.");
                 logger.info("пользователь успешно удален");
                 try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH_USER))) {
                     bw.write(gson.toJson(mUsers));
                 } catch (IOException e) {
-                    logger.info("ошибка при записи в файл");
+                    System.err.println("Ошибка при удалении пользователя.");
+                    logger.info("ошибка при записи в файл " + e.getMessage());
                 }
             }
         }
@@ -82,8 +87,8 @@ public class IOUserRepository implements UserRepository {
             while ((strFromFile = br.readLine()) != null) {
                 sb.append(strFromFile.replaceAll(" ", ""));
             }
-        }  catch (IOException e) {
-            logger.info("ошибка ввода-вывода при парсинге файла пользователей");
+        } catch (IOException e) {
+            logger.info("ошибка ввода-вывода при парсинге файла пользователей " + e.getMessage());
         }
         Type userType = new TypeToken<ArrayList<User>>() {
         }.getType();
