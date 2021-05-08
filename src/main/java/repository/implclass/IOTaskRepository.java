@@ -17,9 +17,6 @@ public class IOTaskRepository implements TaskRepository {
     private List<Task> mTask;
     private final String FILE_PATH_TASK = "src/main/resources/tasks.json";
 
-    public IOTaskRepository() {
-    }
-
     @Override
     public List<Task> getAll() {
         if (getListFromFile(FILE_PATH_TASK) == null) {
@@ -84,8 +81,8 @@ public class IOTaskRepository implements TaskRepository {
         }
         return taskId;
     }
-
-    private List<Task> getListFromFile(String filePath) {
+    @Override
+    public List<Task> getListFromFile(String filePath) {
         StringBuilder sb = new StringBuilder();
         String strFromFile;
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {

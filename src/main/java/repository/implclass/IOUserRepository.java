@@ -17,9 +17,6 @@ public class IOUserRepository implements UserRepository {
     private List<User> mUsers;
     private final String FILE_PATH_USER = "src/main/resources/users.json";
 
-    public IOUserRepository() {
-    }
-
     @Override
     public List<User> getAll() {
         if (getListFromFile(FILE_PATH_USER) == null) {
@@ -85,8 +82,8 @@ public class IOUserRepository implements UserRepository {
         }
         return taskId;
     }
-
-    private List<User> getListFromFile(String filePath) {
+    @Override
+    public List<User> getListFromFile(String filePath) {
         StringBuilder sb = new StringBuilder();
         String strFromFile;
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {

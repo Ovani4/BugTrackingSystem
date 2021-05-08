@@ -10,10 +10,9 @@ public interface Repository <T, ID>{
     List<T> getAll();
     void save(T t);
     void deleteById(ID id);
-    default List<T> getListFromFile(){
+    default List<T> getListFromFile(String filePath){
         return null;
     }
-    default void setFileFromList(List<T> type){}
     Integer generateId();
 
 }

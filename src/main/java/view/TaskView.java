@@ -8,7 +8,8 @@ public class TaskView {
     private TaskController tc = new TaskController();
     private StringBuilder sb = new StringBuilder();
 
-    public TaskView() {
+    public void startView(){
+
         sb.
                 append("Для создания новой задачи введи 1;\n").
                 append("Для удаления задачи по id введи 2;\n").
@@ -46,6 +47,7 @@ public class TaskView {
                     break;
                 case 0:
                     MainView mv = new MainView();
+                    mv.startView();
                     bool = false;
                     break;
                 default:

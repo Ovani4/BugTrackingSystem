@@ -21,9 +21,6 @@ public class IOProjectRepository implements ProjectRepository {
     private List<Project> mProject;
     private final String FILE_PATH_PROJECTS = "src/main/resources/projects.json";
 
-    public IOProjectRepository() {
-    }
-
     @Override
     public List<Project> getAll() {
 
@@ -89,8 +86,8 @@ public class IOProjectRepository implements ProjectRepository {
         }
         return taskId;
     }
-
-    private List<Project> getListFromFile(String filePath) {
+    @Override
+    public List<Project> getListFromFile(String filePath) {
         StringBuilder sb = new StringBuilder();
         String strFromFile;
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {

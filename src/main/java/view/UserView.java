@@ -7,8 +7,7 @@ import java.util.Scanner;
 public class UserView {
     private StringBuilder sb = new StringBuilder();
 
-    public UserView() {
-
+    public void startView(){
         sb.
                 append("Для создания нового пользователя введи 1;\n").
                 append("Для удаления пользоватея по id введи 2;\n").
@@ -37,6 +36,7 @@ public class UserView {
                     break;
                 case 0:
                     MainView mv = new MainView();
+                    mv.startView();
                     bool = false;
                     break;
                 default:

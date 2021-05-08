@@ -9,7 +9,7 @@ public class ProjectView {
     private StringBuilder sb = new StringBuilder();
     private Scanner scanner = new Scanner(System.in);
 
-    public ProjectView() {
+    public void startView(){
         sb.
                 append("Для создания нового проекта введи 1;\n").
                 append("Для удаления проекта по id введи 2;\n").
@@ -37,6 +37,7 @@ public class ProjectView {
                     break;
                 case 0:
                     MainView mv = new MainView();
+                    mv.startView();
                     bool = false;
                     break;
                 default:

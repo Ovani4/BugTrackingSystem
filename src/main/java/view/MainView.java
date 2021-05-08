@@ -10,7 +10,7 @@ public class MainView {
     private Scanner scan = new Scanner(System.in);
     private StringBuilder sb = new StringBuilder();
 
-    public MainView() {
+    public void startView(){
         logger = LogManager.getRootLogger();
         logger.info("приложение запущено");
         int choice;
@@ -27,15 +27,18 @@ public class MainView {
             choice = scan.nextInt();
             switch (choice) {
                 case 1:
-                    UserView uv = new UserView();
+                    UserView userView = new UserView();
+                    userView.startView();
                     boolmv = false;
                     break;
                 case 2:
-                    ProjectView pv = new ProjectView();
+                    ProjectView projectView = new ProjectView();
+                    projectView.startView();
                     boolmv = false;
                     break;
                 case 3:
-                    TaskView tv = new TaskView();
+                    TaskView taskView = new TaskView();
+                    taskView.startView();
                     boolmv = false;
                     break;
                 case 0:
