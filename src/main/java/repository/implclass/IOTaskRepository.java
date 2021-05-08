@@ -3,9 +3,6 @@ package repository.implclass;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import model.Task;
-import model.User;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import repository.TaskRepository;
 
 import java.io.*;
@@ -60,9 +57,9 @@ public class IOTaskRepository implements TaskRepository {
     public void deleteById(Integer integer) {
 
         mTask = new ArrayList<>(getListFromFile(FILE_PATH_TASK));
-        Iterator taskIterator = mTask.iterator();
+        Iterator<Task> taskIterator = mTask.iterator();
         while (taskIterator.hasNext()) {
-            Task nextTask = (Task) taskIterator.next();
+            Task nextTask = taskIterator.next();
             if (nextTask.getId().equals(integer)) {
                 taskIterator.remove();
                 System.out.println("Задача успешно удалена.");
@@ -87,7 +84,7 @@ public class IOTaskRepository implements TaskRepository {
         } catch (IOException e) {
             logger.info("ошибка ввода-вывода при парсинге файла задач " + e.getMessage());
         }
-        Type taskType = new TypeToken<ArrayList<Task>>() {
+        Type taskType = new TypeToken<List<Task>>() {
         }.getType();
         mTask = gson.fromJson(sb.toString(), taskType);
         logger.info("парсинг файла задач успешно совершен");

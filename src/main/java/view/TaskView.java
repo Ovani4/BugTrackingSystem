@@ -1,12 +1,6 @@
 package view;
 
-import controller.ProjectController;
 import controller.TaskController;
-import controller.UserController;
-import model.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import repository.TaskRepository;
 
 import java.util.Scanner;
 

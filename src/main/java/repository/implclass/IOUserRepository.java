@@ -5,8 +5,6 @@ import com.google.gson.reflect.TypeToken;
 import controller.TaskController;
 import model.Task;
 import model.User;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import repository.UserRepository;
 
 import java.io.*;
@@ -14,15 +12,12 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import static repository.TaskRepository.logger;
-
 public class IOUserRepository implements UserRepository {
     private Gson gson = new Gson();
     private List<User> mUsers;
     private final String FILE_PATH_USER = "src/main/resources/users.json";
 
     public IOUserRepository() {
-
     }
 
     @Override
@@ -91,7 +86,7 @@ public class IOUserRepository implements UserRepository {
         } catch (IOException e) {
             logger.info("ошибка ввода-вывода при парсинге файла пользователей " + e.getMessage());
         }
-        Type userType = new TypeToken<ArrayList<User>>() {
+        Type userType = new TypeToken<List<User>>() {
         }.getType();
         mUsers = gson.fromJson(sb.toString(), userType);
         logger.info("парсинг файла пользователей успешно совершен");

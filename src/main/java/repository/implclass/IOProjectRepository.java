@@ -14,7 +14,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import static repository.TaskRepository.logger;
 
 public class IOProjectRepository implements ProjectRepository {
 
@@ -54,7 +53,7 @@ public class IOProjectRepository implements ProjectRepository {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH_PROJECTS))) {
             bw.write(gson.toJson(mProject));
         } catch (IOException e) {
-            System.err.println("Ошибка при сохранении объекта.");
+            System.err.println("Ошибка при сохранении проекта.");
             logger.info("ошибка ввода-вывода при сохранении проекта " + e.getMessage());
         }
     }
@@ -65,16 +64,16 @@ public class IOProjectRepository implements ProjectRepository {
         mProject = new ArrayList<>(getListFromFile(FILE_PATH_PROJECTS));
         for (Task task : tc.getAll()) {
             if (task.getProject().getId().equals(integer)) {
-                System.err.println("Для данного проета существует задача: " + task.getTheme());
-                logger.info("объект не удален, за ним значится задача " + task.getTheme());
+                System.err.println("Для данного проекта существует задача: " + task.getTheme());
+                logger.info("проект не удален, за ним значится задача " + task.getTheme());
             } else {
                 mProject.removeIf(project -> project.getId().equals(integer));
                 try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH_PROJECTS))) {
                     bw.write(gson.toJson(mProject));
-                    System.out.println("Проект успещно удален.");
-                    logger.info("объект успешно удален");
+                    System.out.println("Проект успешно удален.");
+                    logger.info("проект успешно удален");
                 } catch (IOException e) {
-                    System.err.println("Ошибка при удалении объекта.");
+                    System.err.println("Ошибка при удалении проекта.");
                     logger.info("ошибка при записи в файл " + e.getMessage());
                 }
             }
@@ -91,7 +90,7 @@ public class IOProjectRepository implements ProjectRepository {
         } catch (IOException e) {
             logger.info("ошибка ввода-вывода при парсинге файла проектов " + e.getMessage());
         }
-        Type projectType = new TypeToken<ArrayList<Project>>() {
+        Type projectType = new TypeToken<List<Project>>() {
         }.getType();
         mProject = gson.fromJson(sb.toString(), projectType);
         logger.info("парсинг файла проектов успешно совершен");

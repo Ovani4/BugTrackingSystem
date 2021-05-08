@@ -4,7 +4,6 @@ import model.User;
 import repository.UserRepository;
 import repository.implclass.IOUserRepository;
 
-
 import java.util.List;
 import java.util.Scanner;
 

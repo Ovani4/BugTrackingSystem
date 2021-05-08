@@ -1,7 +1,6 @@
 package view;
 
 import controller.ProjectController;
-import model.Project;
 
 import java.util.Scanner;
 
@@ -41,12 +40,7 @@ public class ProjectView {
                     bool = false;
                     break;
                 default:
-                    System.out.println(new StringBuilder().
-                            append("Для создания нового проекта введи 1;\n").
-                            append("Для удаления проекта по id введи 2;\n").
-                            append("Для получения списка всех проектов введи 3;\n").
-                            append("Для возврата в предыдущее меню введи 0;")
-                            .toString());
+                    System.out.println(sb);
                     break;
             }
         }
