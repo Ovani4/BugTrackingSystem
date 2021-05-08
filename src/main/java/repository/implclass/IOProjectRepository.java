@@ -7,7 +7,6 @@ import controller.TaskController;
 import model.Project;
 import model.Task;
 
-import model.User;
 import repository.ProjectRepository;
 
 import java.io.*;

@@ -3,7 +3,6 @@ package repository.implclass;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import model.Task;
-import model.User;
 import repository.TaskRepository;
 
 import java.io.*;
