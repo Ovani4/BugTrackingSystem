@@ -7,14 +7,15 @@ import java.util.Scanner;
 
 public class MainView {
     private static Logger logger;
+    private Scanner scan = new Scanner(System.in);
+    private StringBuilder sb = new StringBuilder();
 
     public MainView() {
         logger = LogManager.getRootLogger();
         logger.info("приложение запущено");
-        Scanner scan = new Scanner(System.in);
         int choice;
         boolean boolmv = true;
-        StringBuilder sb = new StringBuilder();
+
         sb.
                 append("Для создания, удаления, получения списка пользователей введи 1;\n").
                 append("Для создания, удаления, получения списка проектов введи 2;\n").

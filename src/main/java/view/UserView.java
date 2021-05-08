@@ -6,8 +6,10 @@ import model.User;
 import java.util.Scanner;
 
 public class UserView {
+    private StringBuilder sb = new StringBuilder();
+
     public UserView() {
-        StringBuilder sb = new StringBuilder();
+
         sb.
                 append("Для создания нового пользователя введи 1;\n").
                 append("Для удаления пользоватея по id введи 2;\n").
@@ -23,21 +25,11 @@ public class UserView {
             choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
                 case 1:
-                    User user = new User();
-                    Integer userId = uc.getAll().size() + 1;
-                    user.setId(userId);
-                    System.out.println("Введи Имя: ");
-                    user.setFirstName(scanner.nextLine());
-                    System.out.println("Введи Фамилию: ");
-                    user.setLastName(scanner.nextLine());
-                    uc.save(user);
-                    System.out.println("Создан пользователь: " + user.toString());
+                    uc.save();
                     System.out.println(sb);
                     break;
                 case 2:
-                    System.out.println("Введи id пользователя которого необходимо удалить: ");
-                    System.out.println(uc.getAll());
-                    uc.deleteById(Integer.parseInt(scanner.nextLine()));
+                    uc.deleteById();
                     System.out.println(sb);
                     break;
                 case 3:

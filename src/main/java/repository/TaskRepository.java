@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface TaskRepository extends Repository<Task, Integer>{
-    Logger logger = LogManager.getRootLogger();
     TaskController tc = new TaskController();
     static List<Task> getAllByUser(User user){
         List<Task> tasksByUser = new ArrayList<>();

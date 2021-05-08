@@ -5,19 +5,28 @@ import repository.ProjectRepository;
 import repository.implclass.IOProjectRepository;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class ProjectController {
-    ProjectRepository pr = new IOProjectRepository();
+    private ProjectRepository pr = new IOProjectRepository();
+    private Scanner scanner = new Scanner(System.in);
 
-    public List<Project> getAll(){
+    public List<Project> getAll() {
         return pr.getAll();
     }
 
-    public void save(Project project){
+    public void save() {
+        Project project = new Project();
+        Integer projectId = pr.getAll().size() + 1;
+        project.setId(projectId);
+        System.out.println("Введи имя проекта: ");
+        project.setTitle(scanner.nextLine());
         pr.save(project);
+        System.out.println("Создан проект" + project.toString());
     }
 
-    public void deleteById(Integer integer){
-        pr.deleteById(integer);
+    public void deleteById() {
+        System.out.println("Введи id проекта который надо удалить: ");
+        pr.deleteById(Integer.parseInt(scanner.nextLine()));
     }
 }

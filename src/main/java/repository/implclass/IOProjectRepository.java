@@ -6,8 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import controller.TaskController;
 import model.Project;
 import model.Task;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 import repository.ProjectRepository;
 
 import java.io.*;
@@ -15,14 +14,15 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import static repository.TaskRepository.logger;
+
 public class IOProjectRepository implements ProjectRepository {
-    private static Logger logger;
+
     private Gson gson = new Gson();
     private List<Project> mProject;
     private final String FILE_PATH_PROJECTS = "src/main/resources/projects.json";
 
     public IOProjectRepository() {
-        logger = LogManager.getRootLogger();
     }
 
     @Override

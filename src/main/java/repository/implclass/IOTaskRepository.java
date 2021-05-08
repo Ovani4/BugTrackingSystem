@@ -18,11 +18,9 @@ public class IOTaskRepository implements TaskRepository {
 
     private Gson gson = new Gson();
     private List<Task> mTask;
-    private static Logger logger;
     private final String FILE_PATH_TASK = "src/main/resources/tasks.json";
 
     public IOTaskRepository() {
-        logger = LogManager.getRootLogger();
     }
 
     @Override

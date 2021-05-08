@@ -14,14 +14,15 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import static repository.TaskRepository.logger;
+
 public class IOUserRepository implements UserRepository {
-    private static Logger logger;
     private Gson gson = new Gson();
     private List<User> mUsers;
     private final String FILE_PATH_USER = "src/main/resources/users.json";
 
     public IOUserRepository() {
-        logger = LogManager.getRootLogger();
+
     }
 
     @Override
