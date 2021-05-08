@@ -7,6 +7,7 @@ import controller.TaskController;
 import model.Project;
 import model.Task;
 
+import model.User;
 import repository.ProjectRepository;
 
 import java.io.*;
@@ -78,6 +79,16 @@ public class IOProjectRepository implements ProjectRepository {
                 }
             }
         }
+    }
+    @Override
+    public Integer generateId(){
+        int taskId = getAll().size() + 1;
+        mProject = new ArrayList<>(getListFromFile(FILE_PATH_PROJECTS));
+        for (Project project : mProject) {
+            if (project.getId() == taskId)
+                taskId++;
+        }
+        return taskId;
     }
 
     private List<Project> getListFromFile(String filePath) {

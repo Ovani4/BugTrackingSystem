@@ -14,5 +14,6 @@ public interface Repository <T, ID>{
         return null;
     }
     default void setFileFromList(List<T> type){}
+    Integer generateId();
 
 }

@@ -17,7 +17,7 @@ public class UserController {
 
     public void save() {
         User user = new User();
-        Integer userId = ur.getAll().size() + 1;
+        Integer userId = ur.generateId();
         user.setId(userId);
         System.out.println("Введи Имя: ");
         user.setFirstName(scanner.nextLine());

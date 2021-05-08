@@ -17,7 +17,7 @@ public class ProjectController {
 
     public void save() {
         Project project = new Project();
-        Integer projectId = pr.getAll().size() + 1;
+        Integer projectId = pr.generateId();
         project.setId(projectId);
         System.out.println("Введи имя проекта: ");
         project.setTitle(scanner.nextLine());

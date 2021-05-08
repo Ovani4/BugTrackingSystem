@@ -75,6 +75,16 @@ public class IOUserRepository implements UserRepository {
             }
         }
     }
+    @Override
+    public Integer generateId(){
+        int taskId = getAll().size() + 1;
+        mUsers = new ArrayList<>(getListFromFile(FILE_PATH_USER));
+        for (User user : mUsers) {
+            if (user.getId() == taskId)
+                taskId++;
+        }
+        return taskId;
+    }
 
     private List<User> getListFromFile(String filePath) {
         StringBuilder sb = new StringBuilder();

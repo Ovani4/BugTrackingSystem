@@ -21,7 +21,7 @@ public class TaskController {
 
     public void save() {
         Task task = new Task();
-        Integer taskId = tr.getAll().size() + 1;
+        Integer taskId = tr.generateId();
         task.setId(taskId);
         System.out.println("Выбери проект по id: ");
         System.out.println(pc.getAll());

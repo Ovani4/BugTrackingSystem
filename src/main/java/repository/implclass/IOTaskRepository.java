@@ -3,6 +3,7 @@ package repository.implclass;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import model.Task;
+import model.User;
 import repository.TaskRepository;
 
 import java.io.*;
@@ -72,6 +73,17 @@ public class IOTaskRepository implements TaskRepository {
                 }
             }
         }
+    }
+
+    @Override
+    public Integer generateId(){
+        int taskId = getAll().size() + 1;
+        mTask = new ArrayList<>(getListFromFile(FILE_PATH_TASK));
+        for (Task task : mTask) {
+            if (task.getId() == taskId)
+                taskId++;
+        }
+        return taskId;
     }
 
     private List<Task> getListFromFile(String filePath) {
