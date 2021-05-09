@@ -7,6 +7,8 @@ import controller.TaskController;
 import model.Project;
 import model.Task;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import repository.ProjectRepository;
 
 import java.io.*;
@@ -20,6 +22,7 @@ public class IOProjectRepository implements ProjectRepository {
     private Gson gson = new Gson();
     private List<Project> mProject;
     private final String FILE_PATH_PROJECTS = "src/main/resources/projects.json";
+    private static Logger logger = LogManager.getRootLogger();
 
     @Override
     public List<Project> getAll() {
@@ -63,6 +66,11 @@ public class IOProjectRepository implements ProjectRepository {
             if (task.getProject().getId().equals(integer)) {
                 System.err.println("Для данного проекта существует задача: " + task.getTheme());
                 logger.info("проект не удален, за ним значится задача " + task.getTheme());
+                break;
+            }
+            else if (!task.getProject().getId().equals(integer)){
+                System.err.println("Проекта с данным id не обнаружено");
+                logger.info("Проект с введенным id отсутствует");
             } else {
                 mProject.removeIf(project -> project.getId().equals(integer));
                 try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH_PROJECTS))) {

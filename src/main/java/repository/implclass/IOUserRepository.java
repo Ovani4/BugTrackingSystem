@@ -5,6 +5,8 @@ import com.google.gson.reflect.TypeToken;
 import controller.TaskController;
 import model.Task;
 import model.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import repository.UserRepository;
 
 import java.io.*;
@@ -16,6 +18,7 @@ public class IOUserRepository implements UserRepository {
     private Gson gson = new Gson();
     private List<User> mUsers;
     private final String FILE_PATH_USER = "src/main/resources/users.json";
+    private static Logger logger = LogManager.getRootLogger();
 
     @Override
     public List<User> getAll() {
@@ -59,7 +62,12 @@ public class IOUserRepository implements UserRepository {
             if (task.getUser().getId().equals(integer)) {
                 System.err.println("Для данного пользователя существует задача: " + task.getTheme());
                 logger.info("объект не удален, за ним значится задача " + task.getTheme());
-            } else {
+                break;
+            }
+            else if (!task.getUser().getId().equals(integer)){
+                System.err.println("Пользователь с данным id не обнаружен");
+                logger.info("Пользователь с введенным id отсутствует");
+            }else {
                 mUsers.removeIf(user -> user.getId().equals(integer));
                 System.out.println("Пользователь успешно удален.");
                 logger.info("пользователь успешно удален");

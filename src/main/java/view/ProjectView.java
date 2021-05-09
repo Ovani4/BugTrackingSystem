@@ -21,7 +21,7 @@ public class ProjectView {
         boolean bool = true;
         System.out.println(sb);
         while (bool) {
-            choice = Integer.parseInt(scanner.nextLine());
+            choice = scanner.nextInt();
             switch (choice) {
                 case 1:
                     pc.save();

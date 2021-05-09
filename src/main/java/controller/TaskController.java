@@ -1,19 +1,21 @@
 package controller;
 
 import model.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import repository.TaskRepository;
 import repository.implclass.IOTaskRepository;
 
 import java.util.List;
 import java.util.Scanner;
 
-import static repository.TaskRepository.logger;
 
 public class TaskController {
     private TaskRepository tr = new IOTaskRepository();
     private Scanner scanner = new Scanner(System.in);
     private UserController uc = new UserController();
     private ProjectController pc = new ProjectController();
+    private static Logger logger = LogManager.getRootLogger();
 
     public List<Task> getAll() {
         return tr.getAll();
@@ -25,18 +27,20 @@ public class TaskController {
         task.setId(taskId);
         System.out.println("Выбери проект по id: ");
         System.out.println(pc.getAll());
+        Integer choiceProjectId = Integer.parseInt(scanner.nextLine());
         task.setProject(pc.getAll().
                 stream().
                 filter(project -> project.getId().
-                        equals(Integer.parseInt(scanner.nextLine()))).
+                        equals(choiceProjectId)).
                 findFirst().
                 orElse(null));
         System.out.println("Выбери исполнителя по id: ");
         System.out.println(uc.getAll());
+        Integer choiceUserId = Integer.parseInt(scanner.nextLine());
         task.setUser(uc.getAll().
                 stream().
                 filter(user -> user.getId().
-                        equals(Integer.parseInt(scanner.nextLine()))).
+                        equals(choiceUserId)).
                 findFirst().
                 orElse(null));
         System.out.println("Введи тему задачи: ");
@@ -44,19 +48,21 @@ public class TaskController {
         System.out.println("Введи описание задачи: ");
         task.setDescription(scanner.nextLine());
         System.out.println("Выбери тип задачи: \n1. Task \n2. Bug");
-        if (Integer.parseInt(scanner.nextLine()) == 1)
+        int choiceTypeTask = Integer.parseInt(scanner.nextLine());
+        if (choiceTypeTask == 1)
             task.setType(Type.TASK);
         else task.setType(Type.BUG);
         System.out.println("Выбери приоритет задачи: " +
                 "\n 1. Low " +
                 "\n 2. Medium " +
                 "\n 3. Hi");
-        if (Integer.parseInt(scanner.nextLine()) == 1)
+        int choicePriorityTask = Integer.parseInt(scanner.nextLine());
+        if (choicePriorityTask == 1)
             task.setPriority(Priority.LOW);
-        else if (Integer.parseInt(scanner.nextLine()) == 2)
+        else if (choicePriorityTask == 2)
             task.setPriority(Priority.MEDIUM);
         else task.setPriority(Priority.HI);
-        if (task.getProject().equals(null) || task.getUser().equals(null)) {
+        if (task.getProject() == null || task.getUser() == null) {
             System.out.println("Задача не может ссылаться на несуществующий проект или пользователя");
         } else {
             tr.save(task);

@@ -6,12 +6,11 @@ import org.apache.logging.log4j.Logger;
 import java.util.Scanner;
 
 public class MainView {
-    private static Logger logger;
+    private static Logger logger = LogManager.getRootLogger();
     private Scanner scan = new Scanner(System.in);
     private StringBuilder sb = new StringBuilder();
 
     public void startView(){
-        logger = LogManager.getRootLogger();
         logger.info("приложение запущено");
         int choice;
         boolean boolmv = true;
@@ -43,12 +42,12 @@ public class MainView {
                     break;
                 case 0:
                     System.out.println("Закрытие программы...");
+                    logger.info("закрытие приложения");
                     boolmv = false;
                     break;
                 default:
                     System.out.println(sb);
             }
         }
-        logger.info("закрытие приложения");
     }
 }

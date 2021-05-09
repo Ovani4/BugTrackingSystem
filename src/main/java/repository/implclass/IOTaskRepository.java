@@ -3,6 +3,8 @@ package repository.implclass;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import model.Task;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import repository.TaskRepository;
 
 import java.io.*;
@@ -16,6 +18,7 @@ public class IOTaskRepository implements TaskRepository {
     private Gson gson = new Gson();
     private List<Task> mTask;
     private final String FILE_PATH_TASK = "src/main/resources/tasks.json";
+    private static Logger logger = LogManager.getRootLogger();
 
     @Override
     public List<Task> getAll() {
@@ -72,7 +75,7 @@ public class IOTaskRepository implements TaskRepository {
     }
 
     @Override
-    public Integer generateId(){
+    public Integer generateId() {
         int taskId = getAll().size() + 1;
         mTask = new ArrayList<>(getListFromFile(FILE_PATH_TASK));
         for (Task task : mTask) {
@@ -81,6 +84,7 @@ public class IOTaskRepository implements TaskRepository {
         }
         return taskId;
     }
+
     @Override
     public List<Task> getListFromFile(String filePath) {
         StringBuilder sb = new StringBuilder();

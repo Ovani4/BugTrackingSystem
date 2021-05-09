@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface TaskRepository extends Repository<Task, Integer>{
     TaskController tc = new TaskController();
+    Logger logger = LogManager.getRootLogger();
 
     static List<Task> getAllByUser(User user){
         List<Task> tasksByUser = new ArrayList<>();

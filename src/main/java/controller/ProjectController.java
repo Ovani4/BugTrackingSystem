@@ -22,11 +22,12 @@ public class ProjectController {
         System.out.println("Введи имя проекта: ");
         project.setTitle(scanner.nextLine());
         pr.save(project);
-        System.out.println("Создан проект" + project.toString());
+        System.out.println("Создан проект" + project);
     }
 
     public void deleteById() {
         System.out.println("Введи id проекта который надо удалить: ");
+        System.out.println(getAll());
         pr.deleteById(Integer.parseInt(scanner.nextLine()));
     }
 }
