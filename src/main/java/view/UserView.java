@@ -5,34 +5,33 @@ import controller.UserController;
 import java.util.Scanner;
 
 public class UserView {
-    private StringBuilder sb = new StringBuilder();
+    private final StringBuilder userViewMenu = new StringBuilder();
+    private final UserController useUserController = new UserController();
+    private final Scanner scannerUserView = new Scanner(System.in);
 
     public void startView(){
-        sb.
+        userViewMenu.
                 append("Для создания нового пользователя введи 1;\n").
                 append("Для удаления пользоватея по id введи 2;\n").
                 append("Для получения списка всех пользователей введи 3;\n").
-                append("Для возврата в предыдущее меню введи 0;").
-                toString();
-        UserController uc = new UserController();
-        Scanner scanner = new Scanner(System.in);
+                append("Для возврата в предыдущее меню введи 0;");
         int choice;
         boolean bool = true;
-        System.out.println(sb);
+        System.out.println(userViewMenu);
         while (bool) {
-            choice = scanner.nextInt();
+            choice = scannerUserView.nextInt();
             switch (choice) {
                 case 1:
-                    uc.save();
-                    System.out.println(sb);
+                    useUserController.save();
+                    System.out.println(userViewMenu);
                     break;
                 case 2:
-                    uc.deleteById();
-                    System.out.println(sb);
+                    useUserController.deleteById();
+                    System.out.println(userViewMenu);
                     break;
                 case 3:
-                    System.out.println(uc.getAll().toString());
-                    System.out.println(sb);
+                    System.out.println(useUserController.getAll().toString());
+                    System.out.println(userViewMenu);
                     break;
                 case 0:
                     MainView mv = new MainView();
@@ -40,7 +39,7 @@ public class UserView {
                     bool = false;
                     break;
                 default:
-                    System.out.println(sb);
+                    System.out.println(userViewMenu);
                     break;
             }
         }

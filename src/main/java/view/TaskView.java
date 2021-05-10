@@ -5,45 +5,43 @@ import controller.TaskController;
 import java.util.Scanner;
 
 public class TaskView {
-    private TaskController tc = new TaskController();
-    private StringBuilder sb = new StringBuilder();
-
+    private final TaskController useTaskController = new TaskController();
+    private final StringBuilder taskViewMenu = new StringBuilder();
+    Scanner scannerTaskView = new Scanner(System.in);
     public void startView(){
 
-        sb.
+        taskViewMenu.
                 append("Для создания новой задачи введи 1;\n").
                 append("Для удаления задачи по id введи 2;\n").
                 append("Для получения списка всех задач введи 3;\n").
                 append("Для получения списка всех задач конкретного исполнителя введи 4;\n").
                 append("Для получения списка всех задач конкретного проекта введи 5;\n").
-                append("Для возврата в предыдущее меню введи 0;")
-                .toString();
-        Scanner scanner = new Scanner(System.in);
+                append("Для возврата в предыдущее меню введи 0;");
         int choice;
         boolean bool = true;
-        System.out.println(sb);
+        System.out.println(taskViewMenu);
         while (bool) {
-            choice = scanner.nextInt();
+            choice = scannerTaskView.nextInt();
             switch (choice) {
                 case 1:
-                    tc.save();
-                    System.out.println(sb);
+                    useTaskController.save();
+                    System.out.println(taskViewMenu);
                     break;
                 case 2:
-                    tc.deleteById();
-                    System.out.println(sb);
+                    useTaskController.deleteById();
+                    System.out.println(taskViewMenu);
                     break;
                 case 3:
-                    System.out.println(tc.getAll().toString());
-                    System.out.println(sb);
+                    System.out.println(useTaskController.getAll().toString());
+                    System.out.println(taskViewMenu);
                     break;
                 case 4:
-                    tc.getAllByUserId();
-                    System.out.println(sb);
+                    useTaskController.getAllByUserId();
+                    System.out.println(taskViewMenu);
                     break;
                 case 5:
-                    tc.getAllByProjectId();
-                    System.out.println(sb);
+                    useTaskController.getAllByProjectId();
+                    System.out.println(taskViewMenu);
                     break;
                 case 0:
                     MainView mv = new MainView();
@@ -51,7 +49,7 @@ public class TaskView {
                     bool = false;
                     break;
                 default:
-                    System.out.println(sb);
+                    System.out.println(taskViewMenu);
                     break;
             }
         }

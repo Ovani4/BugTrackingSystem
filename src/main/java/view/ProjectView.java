@@ -5,35 +5,34 @@ import controller.ProjectController;
 import java.util.Scanner;
 
 public class ProjectView {
-    private ProjectController pc = new ProjectController();
-    private StringBuilder sb = new StringBuilder();
-    private Scanner scanner = new Scanner(System.in);
+    private final ProjectController useProjectController = new ProjectController();
+    private final StringBuilder projectViewMenu = new StringBuilder();
+    private final Scanner scannerProjectView = new Scanner(System.in);
 
     public void startView(){
-        sb.
+        projectViewMenu.
                 append("Для создания нового проекта введи 1;\n").
                 append("Для удаления проекта по id введи 2;\n").
                 append("Для получения списка всех проектов введи 3;\n").
-                append("Для возврата в предыдущее меню введи 0;")
-                .toString();
+                append("Для возврата в предыдущее меню введи 0;");
 
         int choice;
         boolean bool = true;
-        System.out.println(sb);
+        System.out.println(projectViewMenu);
         while (bool) {
-            choice = scanner.nextInt();
+            choice = scannerProjectView.nextInt();
             switch (choice) {
                 case 1:
-                    pc.save();
-                    System.out.println(sb);
+                    useProjectController.save();
+                    System.out.println(projectViewMenu);
                     break;
                 case 2:
-                    pc.deleteById();
-                    System.out.println(sb);
+                    useProjectController.deleteById();
+                    System.out.println(projectViewMenu);
                     break;
                 case 3:
-                    System.out.println(pc.getAll().toString());
-                    System.out.println(sb);
+                    System.out.println(useProjectController.getAll().toString());
+                    System.out.println(projectViewMenu);
                     break;
                 case 0:
                     MainView mv = new MainView();
@@ -41,7 +40,7 @@ public class ProjectView {
                     bool = false;
                     break;
                 default:
-                    System.out.println(sb);
+                    System.out.println(projectViewMenu);
                     break;
             }
         }

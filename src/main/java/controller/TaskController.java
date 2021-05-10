@@ -11,78 +11,78 @@ import java.util.Scanner;
 
 
 public class TaskController {
-    private TaskRepository tr = new IOTaskRepository();
-    private Scanner scanner = new Scanner(System.in);
-    private UserController uc = new UserController();
+    private TaskRepository useTaskRepository = new IOTaskRepository();
+    private Scanner scannerTaskController = new Scanner(System.in);
+    private UserController useUserController = new UserController();
     private ProjectController pc = new ProjectController();
     private static Logger logger = LogManager.getRootLogger();
 
     public List<Task> getAll() {
-        return tr.getAll();
+        return useTaskRepository.getAll();
     }
 
     public void save() {
-        Task task = new Task();
-        Integer taskId = tr.generateId();
-        task.setId(taskId);
+        Task newTask = new Task();
+        Integer taskId = useTaskRepository.generateId();
+        newTask.setId(taskId);
         System.out.println("Выбери проект по id: ");
         System.out.println(pc.getAll());
-        Integer choiceProjectId = Integer.parseInt(scanner.nextLine());
-        task.setProject(pc.getAll().
+        Integer choiceProjectId = Integer.parseInt(scannerTaskController.nextLine());
+        newTask.setProject(pc.getAll().
                 stream().
                 filter(project -> project.getId().
                         equals(choiceProjectId)).
                 findFirst().
                 orElse(null));
         System.out.println("Выбери исполнителя по id: ");
-        System.out.println(uc.getAll());
-        Integer choiceUserId = Integer.parseInt(scanner.nextLine());
-        task.setUser(uc.getAll().
+        System.out.println(useUserController.getAll());
+        Integer choiceUserId = Integer.parseInt(scannerTaskController.nextLine());
+        newTask.setUser(useUserController.getAll().
                 stream().
                 filter(user -> user.getId().
                         equals(choiceUserId)).
                 findFirst().
                 orElse(null));
         System.out.println("Введи тему задачи: ");
-        task.setTheme(scanner.nextLine());
+        newTask.setTheme(scannerTaskController.nextLine());
         System.out.println("Введи описание задачи: ");
-        task.setDescription(scanner.nextLine());
+        newTask.setDescription(scannerTaskController.nextLine());
         System.out.println("Выбери тип задачи: \n1. Task \n2. Bug");
-        int choiceTypeTask = Integer.parseInt(scanner.nextLine());
+        int choiceTypeTask = Integer.parseInt(scannerTaskController.nextLine());
         if (choiceTypeTask == 1)
-            task.setType(Type.TASK);
-        else task.setType(Type.BUG);
+            newTask.setType(Type.TASK);
+        else newTask.setType(Type.BUG);
         System.out.println("Выбери приоритет задачи: " +
                 "\n 1. Low " +
                 "\n 2. Medium " +
                 "\n 3. Hi");
-        int choicePriorityTask = Integer.parseInt(scanner.nextLine());
+        int choicePriorityTask = Integer.parseInt(scannerTaskController.nextLine());
         if (choicePriorityTask == 1)
-            task.setPriority(Priority.LOW);
+            newTask.setPriority(Priority.LOW);
         else if (choicePriorityTask == 2)
-            task.setPriority(Priority.MEDIUM);
-        else task.setPriority(Priority.HI);
-        if (task.getProject() == null || task.getUser() == null) {
+            newTask.setPriority(Priority.MEDIUM);
+        else newTask.setPriority(Priority.HI);
+        if (newTask.getProject() == null || newTask.getUser() == null) {
             System.out.println("Задача не может ссылаться на несуществующий проект или пользователя");
         } else {
-            tr.save(task);
-            System.out.println("Создана новая задача: " + task);
+            useTaskRepository.save(newTask);
+            System.out.println("Создана новая задача: " + newTask);
         }
     }
 
     public void deleteById() {
         System.out.println("Введи id задачи которую надо удалить: ");
-        System.out.println(tr.getAll());
-        tr.deleteById(Integer.parseInt(scanner.nextLine()));
+        System.out.println(useTaskRepository.getAll());
+        useTaskRepository.deleteById(Integer.parseInt(scannerTaskController.nextLine()));
     }
 
     public void getAllByUserId() {
         System.out.println("Введи id исполнителя");
-        System.out.println(uc.getAll());
-        User user = uc.getAll().
+        System.out.println(useUserController.getAll());
+        User user = useUserController.getAll().
                 stream().
                 filter(user1 -> user1.getId().
-                        equals(Integer.parseInt(scanner.nextLine()))).
+                        equals(Integer.parseInt(scannerTaskController.nextLine()))).
                 findFirst().
                 orElse(null);
         System.out.println(TaskRepository.getAllByUser(user));
@@ -95,7 +95,7 @@ public class TaskController {
         Project project = pc.getAll().
                 stream().
                 filter(project1 -> project1.getId().
-                        equals(Integer.parseInt(scanner.nextLine()))).
+                        equals(Integer.parseInt(scannerTaskController.nextLine()))).
                 findFirst().
                 orElse(null);
         System.out.println(TaskRepository.getAllByProject(project));

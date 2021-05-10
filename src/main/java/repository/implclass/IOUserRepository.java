@@ -15,10 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IOUserRepository implements UserRepository {
-    private Gson gson = new Gson();
-    private List<User> mUsers;
+    private final Gson gsonUserRepository = new Gson();
+    private List<User> listUsers;
     private final String FILE_PATH_USER = "src/main/resources/users.json";
-    private static Logger logger = LogManager.getRootLogger();
+    private static final Logger logger = LogManager.getRootLogger();
+    private final TaskController useTaskController = new TaskController();
 
     @Override
     public List<User> getAll() {
@@ -35,18 +36,18 @@ public class IOUserRepository implements UserRepository {
     @Override
     public void save(User user) {
         if (getListFromFile(FILE_PATH_USER) == null) {
-            mUsers = new ArrayList<>();
-            mUsers.add(user);
+            listUsers = new ArrayList<>();
+            listUsers.add(user);
             System.out.println("Пользователь успешно сохранен.");
             logger.info("пользователь успешно сохранен");
         } else {
-            mUsers = new ArrayList<>(getListFromFile(FILE_PATH_USER));
-            mUsers.add(user);
+            listUsers = new ArrayList<>(getListFromFile(FILE_PATH_USER));
+            listUsers.add(user);
             System.out.println("Пользователь успешно сохранен.");
             logger.info("пользователь успешно сохранен");
         }
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH_USER))) {
-            bw.write(gson.toJson(mUsers));
+            bw.write(gsonUserRepository.toJson(listUsers));
         } catch (IOException e) {
             System.err.println("Ошибка при сохранении пользователя.");
             logger.info("ошибка ввода-вывода при сохранении пользователя " + e.getMessage());
@@ -55,10 +56,9 @@ public class IOUserRepository implements UserRepository {
 
     @Override
     public void deleteById(Integer integer) {
-        TaskController tc = new TaskController();
-        mUsers = new ArrayList<>(getListFromFile(FILE_PATH_USER));
+        listUsers = new ArrayList<>(getListFromFile(FILE_PATH_USER));
         for (Task task :
-                tc.getAll()) {
+                useTaskController.getAll()) {
             if (task.getUser().getId().equals(integer)) {
                 System.err.println("Для данного пользователя существует задача: " + task.getTheme());
                 logger.info("объект не удален, за ним значится задача " + task.getTheme());
@@ -68,11 +68,11 @@ public class IOUserRepository implements UserRepository {
                 System.err.println("Пользователь с данным id не обнаружен");
                 logger.info("Пользователь с введенным id отсутствует");
             }else {
-                mUsers.removeIf(user -> user.getId().equals(integer));
+                listUsers.removeIf(user -> user.getId().equals(integer));
                 System.out.println("Пользователь успешно удален.");
                 logger.info("пользователь успешно удален");
                 try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH_USER))) {
-                    bw.write(gson.toJson(mUsers));
+                    bw.write(gsonUserRepository.toJson(listUsers));
                 } catch (IOException e) {
                     System.err.println("Ошибка при удалении пользователя.");
                     logger.info("ошибка при записи в файл " + e.getMessage());
@@ -83,8 +83,8 @@ public class IOUserRepository implements UserRepository {
     @Override
     public Integer generateId(){
         int taskId = getAll().size() + 1;
-        mUsers = new ArrayList<>(getListFromFile(FILE_PATH_USER));
-        for (User user : mUsers) {
+        listUsers = new ArrayList<>(getListFromFile(FILE_PATH_USER));
+        for (User user : listUsers) {
             if (user.getId() == taskId)
                 taskId++;
         }
@@ -103,8 +103,8 @@ public class IOUserRepository implements UserRepository {
         }
         Type userType = new TypeToken<List<User>>() {
         }.getType();
-        mUsers = gson.fromJson(sb.toString(), userType);
+        listUsers = gsonUserRepository.fromJson(sb.toString(), userType);
         logger.info("парсинг файла пользователей успешно совершен");
-        return mUsers;
+        return listUsers;
     }
 }
