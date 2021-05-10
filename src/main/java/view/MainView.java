@@ -6,22 +6,22 @@ import org.apache.logging.log4j.Logger;
 import java.util.Scanner;
 
 public class MainView {
-    private static Logger logger = LogManager.getRootLogger();
+    private static final Logger logger = LogManager.getRootLogger();
     private Scanner scan = new Scanner(System.in);
-    private StringBuilder sb = new StringBuilder();
+    private StringBuilder mainViewMenu = new StringBuilder();
 
     public void startView(){
         logger.info("приложение запущено");
         int choice;
         boolean boolmv = true;
 
-        sb.
+        mainViewMenu.
                 append("Для создания, удаления, получения списка пользователей введи 1;\n").
                 append("Для создания, удаления, получения списка проектов введи 2;\n").
                 append("Для создания, удаления, получения списка задач введи 3;\n").
-                append("Для выхода из программы введи 0;").toString();
+                append("Для выхода из программы введи 0;");
 
-        System.out.println(sb);
+        System.out.println(mainViewMenu);
         while (boolmv) {
             choice = scan.nextInt();
             switch (choice) {
@@ -46,7 +46,7 @@ public class MainView {
                     boolmv = false;
                     break;
                 default:
-                    System.out.println(sb);
+                    System.out.println(mainViewMenu);
             }
         }
     }

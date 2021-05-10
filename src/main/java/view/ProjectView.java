@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class ProjectView {
     private final ProjectController useProjectController = new ProjectController();
     private final StringBuilder projectViewMenu = new StringBuilder();
-    private final Scanner scannerProjectView = new Scanner(System.in);
+    private Scanner scannerProjectView = new Scanner(System.in);
 
     public void startView(){
         projectViewMenu.

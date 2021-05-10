@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class UserController {
-    private UserRepository useUserRepository = new IOUserRepository();
+    private final UserRepository useUserRepository = new IOUserRepository();
     private Scanner scanner = new Scanner(System.in);
 
     public List<User> getAll() {
