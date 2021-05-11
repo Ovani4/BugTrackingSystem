@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Scanner;
 
 public class MainView {
-    private static final Logger logger = LogManager.getRootLogger();
+    private static Logger logger = LogManager.getRootLogger();
     private Scanner scan = new Scanner(System.in);
     private StringBuilder mainViewMenu = new StringBuilder();
 

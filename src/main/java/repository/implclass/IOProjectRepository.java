@@ -9,21 +9,22 @@ import model.Task;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.util.JsonUtils;
 import repository.ProjectRepository;
 
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
 public class IOProjectRepository implements ProjectRepository {
 
-    private final Gson gsonProjectRepository = new Gson();
+    private Gson gsonProjectRepository = new Gson();
     private List<Project> listProject;
     private final String FILE_PATH_PROJECTS = "src/main/resources/projects.json";
-    private static final Logger loggerProjectRepository = LogManager.getRootLogger();
-    private final TaskController useTaskController = new TaskController();
+    private static Logger loggerProjectRepository = LogManager.getRootLogger();
 
     @Override
     public List<Project> getAll() {
@@ -61,39 +62,54 @@ public class IOProjectRepository implements ProjectRepository {
 
     @Override
     public void deleteById(Integer integer) {
+        TaskController useTaskController = new TaskController();
         listProject = new ArrayList<>(getListFromFile(FILE_PATH_PROJECTS));
-        for (Task task : useTaskController.getAll()) {
-            if (task.getProject().getId().equals(integer)) {
-                System.err.println("Для данного проекта существует задача: " + task.getTheme());
-                loggerProjectRepository.info("проект не удален, за ним значится задача " + task.getTheme());
-                break;
-            }
-            else if (!task.getProject().getId().equals(integer)){
-                System.err.println("Проекта с данным id не обнаружено");
-                loggerProjectRepository.info("Проект с введенным id отсутствует");
-            } else {
-                listProject.removeIf(project -> project.getId().equals(integer));
-                try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH_PROJECTS))) {
-                    bw.write(gsonProjectRepository.toJson(listProject));
-                    System.out.println("Проект успешно удален.");
-                    loggerProjectRepository.info("проект успешно удален");
-                } catch (IOException e) {
-                    System.err.println("Ошибка при удалении проекта.");
-                    loggerProjectRepository.info("ошибка при записи в файл " + e.getMessage());
+        boolean canBeDeleted = true;
+        Iterator<Project> projectIterator = listProject.iterator();
+        while (projectIterator.hasNext()) {
+            Project nextProject = projectIterator.next();
+            if (nextProject.getId().equals(integer)) {
+                for (Task task : useTaskController.getAll()) {
+                    if (task.getProject().getId().equals(nextProject.getId())) {
+                        System.out.println("Для данного проекта существует задача " + task.getTheme());
+                        loggerProjectRepository.info("Проект не удален, за ним числется задача " + task.getTheme());
+                        canBeDeleted = false;
+                    }
+                }
+                if (canBeDeleted) {
+                    projectIterator.remove();
+                    System.out.println("Проект успешно удален");
+                    loggerProjectRepository.info("проект с id " + integer + " успешно удален");
+                    try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH_PROJECTS))) {
+                        bw.write(gsonProjectRepository.toJson(listProject));
+                    } catch (IOException e) {
+                        System.err.println("Ошибка при удалении пользователя.");
+                        loggerProjectRepository.info("ошибка при записи в файл " + e.getMessage());
+                    }
                 }
             }
         }
     }
+
     @Override
-    public Integer generateId(){
-        int taskId = getAll().size() + 1;
+    public Integer generateId() {
+        int projectId = getAll().size() + 1;
         listProject = new ArrayList<>(getListFromFile(FILE_PATH_PROJECTS));
-        for (Project project : listProject) {
-            if (project.getId() == taskId)
-                taskId++;
+        boolean isUniqueId = true;
+        while (isUniqueId) {
+            int counter = 0;
+            for (Project project : listProject) {
+                if (project.getId() == projectId) {
+                    projectId++;
+                    counter++;
+                }
+            }
+            if (counter == 0)
+                isUniqueId = false;
         }
-        return taskId;
+        return projectId;
     }
+
     @Override
     public List<Project> getListFromFile(String filePath) {
         StringBuilder sb = new StringBuilder();

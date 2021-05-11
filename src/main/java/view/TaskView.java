@@ -5,8 +5,8 @@ import controller.TaskController;
 import java.util.Scanner;
 
 public class TaskView {
-    private final TaskController useTaskController = new TaskController();
-    private final StringBuilder taskViewMenu = new StringBuilder();
+    private TaskController useTaskController = new TaskController();
+    private StringBuilder taskViewMenu = new StringBuilder();
     private Scanner scannerTaskView = new Scanner(System.in);
     public void startView(){
 

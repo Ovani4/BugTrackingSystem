@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ProjectController {
-    private ProjectRepository useProjectRepository = new IOProjectRepository();
-    private Scanner scanner = new Scanner(System.in);
+    ProjectRepository useProjectRepository = new IOProjectRepository();
+    Scanner scanner = new Scanner(System.in);
 
     public List<Project> getAll() {
         return useProjectRepository.getAll();

@@ -5,8 +5,8 @@ import controller.UserController;
 import java.util.Scanner;
 
 public class UserView {
-    private final StringBuilder userViewMenu = new StringBuilder();
-    private final UserController useUserController = new UserController();
+    private StringBuilder userViewMenu = new StringBuilder();
+    private UserController useUserController = new UserController();
     private Scanner scannerUserView = new Scanner(System.in);
 
     public void startView(){

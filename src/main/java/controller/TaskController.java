@@ -11,10 +11,10 @@ import java.util.Scanner;
 
 
 public class TaskController {
-    private TaskRepository useTaskRepository = new IOTaskRepository();
-    private Scanner scannerTaskController = new Scanner(System.in);
-    private UserController useUserController = new UserController();
-    private ProjectController pc = new ProjectController();
+    TaskRepository useTaskRepository = new IOTaskRepository();
+    Scanner scannerTaskController = new Scanner(System.in);
+    UserController useUserController = new UserController();
+    ProjectController useProjectController = new ProjectController();
     private static Logger logger = LogManager.getRootLogger();
 
     public List<Task> getAll() {
@@ -26,9 +26,9 @@ public class TaskController {
         Integer taskId = useTaskRepository.generateId();
         newTask.setId(taskId);
         System.out.println("Выбери проект по id: ");
-        System.out.println(pc.getAll());
+        System.out.println(useProjectController.getAll());
         Integer choiceProjectId = Integer.parseInt(scannerTaskController.nextLine());
-        newTask.setProject(pc.getAll().
+        newTask.setProject(useProjectController.getAll().
                 stream().
                 filter(project -> project.getId().
                         equals(choiceProjectId)).
@@ -79,10 +79,11 @@ public class TaskController {
     public void getAllByUserId() {
         System.out.println("Введи id исполнителя");
         System.out.println(useUserController.getAll());
+        int userId = scannerTaskController.nextInt();
         User user = useUserController.getAll().
                 stream().
                 filter(user1 -> user1.getId().
-                        equals(Integer.parseInt(scannerTaskController.nextLine()))).
+                        equals(userId)).
                 findFirst().
                 orElse(null);
         System.out.println(TaskRepository.getAllByUser(user));
@@ -91,11 +92,12 @@ public class TaskController {
 
     public void getAllByProjectId() {
         System.out.println("Введи id проекта");
-        System.out.println(pc.getAll());
-        Project project = pc.getAll().
+        System.out.println(useProjectController.getAll());
+        int projectId = scannerTaskController.nextInt();
+        Project project = useProjectController.getAll().
                 stream().
                 filter(project1 -> project1.getId().
-                        equals(Integer.parseInt(scannerTaskController.nextLine()))).
+                        equals(projectId)).
                 findFirst().
                 orElse(null);
         System.out.println(TaskRepository.getAllByProject(project));
