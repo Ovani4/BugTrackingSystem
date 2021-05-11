@@ -8,7 +8,8 @@ public class TaskView {
     private TaskController useTaskController = new TaskController();
     private StringBuilder taskViewMenu = new StringBuilder();
     private Scanner scannerTaskView = new Scanner(System.in);
-    public void startView(){
+
+    public void startView() {
 
         taskViewMenu.
                 append("Для создания новой задачи введи 1;\n").

@@ -15,7 +15,7 @@ public class TaskController {
     Scanner scannerTaskController = new Scanner(System.in);
     UserController useUserController = new UserController();
     ProjectController useProjectController = new ProjectController();
-    private static Logger logger = LogManager.getRootLogger();
+    private static Logger loggerTaskController = LogManager.getRootLogger();
 
     public List<Task> getAll() {
         return useTaskRepository.getAll();
@@ -87,7 +87,7 @@ public class TaskController {
                 findFirst().
                 orElse(null);
         System.out.println(TaskRepository.getAllByUser(user));
-        logger.info("получение списка задач для пользователя" + user);
+        loggerTaskController.info("получение списка задач для пользователя" + user);
     }
 
     public void getAllByProjectId() {
@@ -101,6 +101,6 @@ public class TaskController {
                 findFirst().
                 orElse(null);
         System.out.println(TaskRepository.getAllByProject(project));
-        logger.info("получение списка задач для проекта" + project);
+        loggerTaskController.info("получение списка задач для проекта" + project);
     }
 }

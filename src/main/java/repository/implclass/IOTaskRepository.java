@@ -2,10 +2,7 @@ package repository.implclass;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import model.Project;
 import model.Task;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import repository.TaskRepository;
 
 import java.io.*;
@@ -16,10 +13,9 @@ import java.util.List;
 
 public class IOTaskRepository implements TaskRepository {
 
-    private  Gson gsonTaskRepository = new Gson();
+    private Gson gsonTaskRepository = new Gson();
     private List<Task> listTask;
     private final String FILE_PATH_TASK = "src/main/resources/tasks.json";
-    private static Logger logger = LogManager.getRootLogger();
 
     @Override
     public List<Task> getAll() {

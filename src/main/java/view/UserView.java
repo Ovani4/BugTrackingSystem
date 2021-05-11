@@ -9,7 +9,7 @@ public class UserView {
     private UserController useUserController = new UserController();
     private Scanner scannerUserView = new Scanner(System.in);
 
-    public void startView(){
+    public void startView() {
         userViewMenu.
                 append("Для создания нового пользователя введи 1;\n").
                 append("Для удаления пользоватея по id введи 2;\n").

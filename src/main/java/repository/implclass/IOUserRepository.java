@@ -84,8 +84,9 @@ public class IOUserRepository implements UserRepository {
             }
         }
     }
+
     @Override
-    public Integer generateId(){
+    public Integer generateId() {
         int userId = getAll().size() + 1;
         listUsers = new ArrayList<>(getListFromFile(FILE_PATH_USER));
         boolean isUniqueId = true;
@@ -102,6 +103,7 @@ public class IOUserRepository implements UserRepository {
         }
         return userId;
     }
+
     @Override
     public List<User> getListFromFile(String filePath) {
         StringBuilder sb = new StringBuilder();

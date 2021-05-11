@@ -9,7 +9,7 @@ public class ProjectView {
     private StringBuilder projectViewMenu = new StringBuilder();
     private Scanner scannerProjectView = new Scanner(System.in);
 
-    public void startView(){
+    public void startView() {
         projectViewMenu.
                 append("Для создания нового проекта введи 1;\n").
                 append("Для удаления проекта по id введи 2;\n").
